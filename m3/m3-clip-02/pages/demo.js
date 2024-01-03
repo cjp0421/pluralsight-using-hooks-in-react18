@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Demo() {
   const [text1, setText1] = useState("First");
+  useEffect(() => {
+    document.title = `${text1.length}`;
+  })
   const [text2, setText2] = useState("Last");
 
   return (
