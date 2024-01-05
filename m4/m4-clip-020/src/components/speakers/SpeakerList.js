@@ -2,7 +2,7 @@ import SpeakerLine from "./SpeakerLine";
 import { useEffect, useState } from 'react';
 import axios from "axios";
 
-function List() {
+function List({ speakers }) {
   const updatingId = 0; // 1269;
   const isPending = false;
 
@@ -36,7 +36,7 @@ function List() {
       </div>
 
       <div className="row g-3">
-        {speakerList.map(function (speakerRec) {
+        {speakers.map(function (speakerRec) {
           const highlight = false;
           return (
             <SpeakerLine
@@ -58,13 +58,23 @@ const SpeakerList = () => {
   const [speakers, setSpeakers] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //useEffect does not support the async / await pattern
+  //the work-around is to put an async function inside of useEffect and then call that function inside useEffect
   useEffect(() => {
+    async function getDataAsync() {
+      setLoading(true);
+      const results = await axios.get("/api/speakers");
+      setSpeakers(results.data);
+      setLoading(false);
+    }
+    getDataAsync();
+  }, []);
 
-  })
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className={darkTheme ? "theme-dark" : "theme-light"}>
-      <List />
+      <List speakers={speakers} />
     </div>
   );
 };
