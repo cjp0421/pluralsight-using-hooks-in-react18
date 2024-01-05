@@ -1,11 +1,12 @@
 import SpeakerLine from "./SpeakerLine";
-import { speakerList } from "../../../speakersData";
+import { useEffect, useState } from 'react';
+import axios from "axios";
 
 function List() {
   const updatingId = 0; // 1269;
   const isPending = false;
 
-  function toggleFavoriteSpeaker(speakerRec) {}
+  function toggleFavoriteSpeaker(speakerRec) { }
 
   return (
     <div className="container">
@@ -19,7 +20,7 @@ function List() {
             <div className="toolbar-search w-100">
               <input
                 value=""
-                onChange={(event) => {}}
+                onChange={(event) => { }}
                 type="text"
                 className="form-control"
                 placeholder="Highlight Names"
@@ -54,6 +55,13 @@ function List() {
 
 const SpeakerList = () => {
   const darkTheme = false;
+  const [speakers, setSpeakers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+  })
+
   return (
     <div className={darkTheme ? "theme-dark" : "theme-light"}>
       <List />
